@@ -21,7 +21,12 @@ export default /** @type import('electron-builder').Configuration */
   files: [
     'LICENSE*',
     pkg.main,
-    '!node_modules/@app/**',
+    // 包含必要的@app包，但排除源码
+    'node_modules/@app/*/dist/**',
+    'node_modules/@app/*/package.json',
+    '!node_modules/@app/*/src/**',
+    '!node_modules/@app/*/vite.config.*',
+    '!node_modules/@app/*/tsconfig.*',
     ...(await getListOfFilesFromEachWorkspace()),
   ],
 })

@@ -19,7 +19,7 @@
   "scripts": {
     "build": "pnpm -r --if-present run build",
     "compile": "pnpm run build && electron-builder build --config electron-builder.mjs",
-    "test": "pnpm dlx playwright test ./tests/e2e.spec.ts",
+    "test": "playwright test",
     "start": "node packages/dev-mode.js",
     "typecheck": "pnpm -r --if-present run typecheck",
     "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
@@ -38,10 +38,9 @@
     "@types/node": "24.3.0",
     "@vitejs/plugin-react-swc": "^4.0.1",
     "create-vite": "7.1.1",
-    "electron": "^37.3.1",
+    "electron": "37.3.1",
     "electron-builder": "26.0.12",
     "glob": "11.0.3",
-    "playwright": "^1.55.0",
     "terser": "^5.43.1",
     "vite": "^7.1.3"
   },
