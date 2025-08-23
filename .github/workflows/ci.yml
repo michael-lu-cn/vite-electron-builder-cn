@@ -62,3 +62,4 @@ jobs:
     with:
       distribution-channel: ${{ inputs.distribution-channel }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
+    secrets: inherit
