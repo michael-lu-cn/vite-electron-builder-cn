@@ -57,13 +57,20 @@ jobs:
         if: inputs.distribution-channel == 'pr-validation'
         run: pnpm run build
 
-      - name: Compile for release
-        if: inputs.distribution-channel != 'pr-validation'
+      - name: Build for testing (no publish)
+        if: inputs.distribution-channel == 'pr-validation'
         run: |
           pnpm run build
           pnpm exec electron-builder build --config electron-builder.mjs -p never
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
+
+      - name: Build and publish release
+        if: inputs.distribution-channel != 'pr-validation'
+        run: pnpm run compile
+        env:
+          VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: pnpm run test
         if: matrix.os != 'ubuntu-latest'
