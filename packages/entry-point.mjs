@@ -30,11 +30,29 @@ initApp({
   renderer:
     process.env.MODE === 'development' && !!process.env.VITE_DEV_SERVER_URL
       ? new URL(process.env.VITE_DEV_SERVER_URL)
-      : {
-          path: fileURLToPath(import.meta.resolve('@app/renderer')),
-        },
+      : (() => {
+          try {
+            return { path: fileURLToPath(import.meta.resolve('@app/renderer')) }
+          } catch (_e) {
+            // Fallback to local workspace renderer build output
+            return {
+              path: join(dirname(fileURLToPath(import.meta.url)), 'renderer', 'dist', 'index.html'),
+            }
+          }
+        })(),
 
   preload: {
-    path: join(dirname(fileURLToPath(import.meta.url)), 'preload', 'dist', 'exposed.mjs'),
+    // Resolve preload via package export to match how it is packaged into app.asar
+    // e.g. resolves to node_modules/@app/preload/dist/exposed.mjs inside asar
+    // In development mode import.meta.resolve may not find workspace packages by name,
+    // so fallback to local packages path if resolution fails.
+    path: (() => {
+      try {
+        return fileURLToPath(import.meta.resolve('@app/preload/exposed.mjs'))
+      } catch (_e) {
+        // Fallback to local package build output in mono-repo
+        return join(dirname(fileURLToPath(import.meta.url)), 'preload', 'dist', 'exposed.mjs')
+      }
+    })(),
   },
 })
