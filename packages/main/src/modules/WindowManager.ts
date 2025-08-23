@@ -28,18 +28,23 @@ class WindowManager implements AppModule {
   async createWindow(): Promise<BrowserWindow> {
     const preloadPath = this.#preload.path
 
+    // 使用 Logger 替代 console 输出；在生产环境中保持静默，仅在 DEBUG 环境打印
     try {
       const exists = existsSync(preloadPath)
-      console.log('[preload-check] path=', preloadPath, 'exists=', exists)
-      if (exists) {
-        const head = readFileSync(preloadPath, 'utf8').slice(0, 400)
-        console.log(
-          '[preload-check] containsExposeInMainWorld=',
-          head.includes('exposeInMainWorld') || head.includes('contextBridge.exposeInMainWorld')
-        )
+      if (process.env.DEBUG === 'true') {
+        console.debug('[preload-check] path=', preloadPath, 'exists=', exists)
+        if (exists) {
+          const head = readFileSync(preloadPath, 'utf8').slice(0, 400)
+          console.debug(
+            '[preload-check] containsExposeInMainWorld=',
+            head.includes('exposeInMainWorld') || head.includes('contextBridge.exposeInMainWorld')
+          )
+        }
       }
     } catch (err) {
-      console.error('[preload-check] error reading preload file', err)
+      if (process.env.DEBUG === 'true') {
+        console.error('[preload-check] error reading preload file', err)
+      }
     }
 
     const browserWindow = new BrowserWindow({
