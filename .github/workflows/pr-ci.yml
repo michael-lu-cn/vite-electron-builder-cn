@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - 3-优化工具链-optimistic
     paths-ignore:
       - '**.md'
       - .editorconfig
