@@ -9,11 +9,9 @@ class ModuleRunner implements PromiseLike<void> {
     this.#promise = Promise.resolve()
   }
 
-  then<TResult1 = void, TResult2 = never>(
-    onfulfilled?: ((value: undefined) => TResult1 | PromiseLike<TResult1>) | null | undefined,
-    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | null | undefined
-  ): PromiseLike<TResult1 | TResult2> {
-    return this.#promise.then(onfulfilled, onrejected)
+  // 提供一个 run 方法来执行所有模块
+  async run(): Promise<void> {
+    return this.#promise
   }
 
   init(module: AppModule) {

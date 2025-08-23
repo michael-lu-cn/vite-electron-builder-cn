@@ -16,7 +16,7 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [
-    async ({}, use) => {
+    async (_fixtures, use) => {
       /**
        * Executable path depends on root package name!
        */
@@ -46,7 +46,7 @@ const test = base.extend<TestFixtures>({
       // This code runs after all the tests in the worker process.
       await electronApp.close()
     },
-    { scope: 'worker', auto: true } as any,
+    { scope: 'worker', auto: true },
   ],
 
   page: async ({ electronApp }, use) => {
