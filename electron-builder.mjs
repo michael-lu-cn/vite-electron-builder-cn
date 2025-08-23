@@ -1,7 +1,7 @@
-import pkg from './package.json' with {type: 'json'};
-import mapWorkspaces from '@npmcli/map-workspaces';
-import {join} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
+import mapWorkspaces from '@npmcli/map-workspaces'
+import pkg from './package.json' with { type: 'json' }
 
 export default /** @type import('electron-builder').Configuration */
 ({
@@ -22,9 +22,9 @@ export default /** @type import('electron-builder').Configuration */
     'LICENSE*',
     pkg.main,
     '!node_modules/@app/**',
-    ...await getListOfFilesFromEachWorkspace(),
+    ...(await getListOfFilesFromEachWorkspace()),
   ],
-});
+})
 
 /**
  * By default, electron-builder copies each package into the output compilation entirety,
@@ -85,26 +85,27 @@ export default /** @type import('electron-builder').Configuration */
  * ```
  */
 async function getListOfFilesFromEachWorkspace() {
-
   /**
    * @type {Map<string, string>}
    */
   const workspaces = await mapWorkspaces({
     cwd: process.cwd(),
     pkg,
-  });
+  })
 
-  const allFilesToInclude = [];
+  const allFilesToInclude = []
 
   for (const [name, path] of workspaces) {
-    const pkgPath = join(path, 'package.json');
-    const {default: workspacePkg} = await import(pathToFileURL(pkgPath), {with: {type: 'json'}});
+    const pkgPath = join(path, 'package.json')
+    const { default: workspacePkg } = await import(pathToFileURL(pkgPath), {
+      with: { type: 'json' },
+    })
 
-    let patterns = workspacePkg.files || ['dist/**', 'package.json'];
+    let patterns = workspacePkg.files || ['dist/**', 'package.json']
 
-    patterns = patterns.map(p => join('node_modules', name, p));
-    allFilesToInclude.push(...patterns);
+    patterns = patterns.map((p) => join('node_modules', name, p))
+    allFilesToInclude.push(...patterns)
   }
 
-  return allFilesToInclude;
+  return allFilesToInclude
 }
