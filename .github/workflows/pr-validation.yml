@@ -1,0 +1,62 @@
+# Simplified PR validation workflow
+name: PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - '.idea/**'
+      - '.vscode/**'
+
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
+
+jobs:
+  validate:
+    name: Validate PR - TypeScript + React
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/init-template-with-renderer
+        name: Setup boilerplate
+        with:
+          renderer-template: react-swc-ts
+
+      - name: TypeScript Check
+        run: pnpm run typecheck
+
+      - name: Code Quality Check
+        run: pnpm run lint
+
+      - name: Build Validation
+        run: pnpm run build
+
+      - name: Run Tests
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm run test
+
+  dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
+    needs:
+      - validate
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
