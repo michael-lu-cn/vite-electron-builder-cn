@@ -22,14 +22,17 @@ const test = base.extend<TestFixtures>({
        */
       let executablePattern = 'dist/*/root{,.*}'
       if (platform === 'darwin') {
-        executablePattern += '/Contents/*/root'
+        executablePattern = 'dist/mac/root.app/Contents/MacOS/root'
       }
 
       const [executablePath] = globSync(executablePattern)
       if (!executablePath) {
+        console.log('Pattern:', executablePattern)
+        console.log('Available files:', globSync('dist/**/*'))
         throw new Error('App Executable path not found')
       }
 
+      console.log('Launching Electron with path:', executablePath)
       const electronApp = await electron.launch({
         executablePath: executablePath,
         args: ['--no-sandbox'],
