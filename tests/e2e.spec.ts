@@ -14,7 +14,7 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [
-    async (_, use) => {
+    async ({}, use) => {
       /**
        * Executable path depends on root package name!
        */
