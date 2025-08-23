@@ -64,12 +64,14 @@ runs:
         ELECTRON_CACHE: ~/.cache/electron
         ELECTRON_BUILDER_CACHE: ~/.cache/electron-builder
 
-    - name: Verify Electron Installation
+    - name: Post-install Electron setup
       run: |
-        # 检查Electron是否正确安装，如果没有则重新安装
+        # 确保Electron二进制文件正确安装
+        echo "Checking Electron installation..."
         if ! pnpm exec electron --version 2>/dev/null; then
-          echo "Electron installation failed, reinstalling..."
-          pnpm rebuild electron
+          echo "Electron not working, running post-install..."
+          # 运行electron的post-install脚本
+          cd node_modules/.pnpm/electron@*/node_modules/electron && npm run postinstall || true
         fi
       shell: bash
       env:
