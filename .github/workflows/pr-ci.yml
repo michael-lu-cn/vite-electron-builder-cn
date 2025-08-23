@@ -1,0 +1,54 @@
+# CI workflow for TypeScript + React template
+name: CI for TypeScript + React
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - '.idea/**'
+      - '.vscode/**'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - '.idea/**'
+      - '.vscode/**'
+
+concurrency:
+  group: ${{github.workflow}}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  run-ci:
+    name: CI for React TypeScript Template
+    uses: ./.github/workflows/ci.yml
+    with:
+      distribution-channel: react-swc-ts
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+
+  dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
+    needs:
+      - run-ci
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
