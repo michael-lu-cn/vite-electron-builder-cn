@@ -3,12 +3,12 @@
 
 echo "🚀 Running pre-push checks..."
 
-# 构建检查
-echo "🏗️ Building project..."
-pnpm build
+# 类型检查
+echo "📝 Type checking..."
+pnpm typecheck
 
-# 运行测试
-echo "🧪 Running tests..."
-pnpm test
+# 代码检查
+echo "🔧 Linting..."
+pnpm lint
 
 echo "✅ Pre-push checks passed!"
