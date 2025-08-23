@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# 类型检查
+echo "📝 Type checking..."
+pnpm typecheck
+
+# 代码检查
+echo "🔧 Linting..."
+pnpm lint
+
+echo "✅ Pre-push checks passed!"

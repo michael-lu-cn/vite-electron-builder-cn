@@ -6,10 +6,14 @@ import { allowInternalOrigins } from './modules/BlockNotAllowdOrigins.js'
 import { chromeDevToolsExtension } from './modules/ChromeDevToolsExtension.js'
 import { allowExternalUrls } from './modules/ExternalUrls.js'
 import { hardwareAccelerationMode } from './modules/HardwareAccelerationModule.js'
+import { Logger } from './modules/Logger.js'
 import { disallowMultipleAppInstance } from './modules/SingleInstanceApp.js'
 import { createWindowManagerModule } from './modules/WindowManager.js'
 
 export async function initApp(initConfig: AppInitConfig) {
+  // 初始化日志系统
+  const _logger = new Logger()
+
   const moduleRunner = createModuleRunner()
     .init(createWindowManagerModule({ initConfig, openDevTools: import.meta.env.DEV }))
     .init(disallowMultipleAppInstance())

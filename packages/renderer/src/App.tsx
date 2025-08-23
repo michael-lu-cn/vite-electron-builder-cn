@@ -1,10 +1,36 @@
+import { useEffect, useState } from 'react'
 import viteLogo from '/vite.svg'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { useAppStore } from './store/useAppStore'
+import { HealthChecker } from './utils/healthCheck'
 
-function App() {
+function AppContent() {
   const { count, theme, increment, decrement, toggleTheme, reset } = useAppStore()
+  const [healthStatus, setHealthStatus] = useState<'checking' | 'healthy' | 'unhealthy'>('checking')
+
+  useEffect(() => {
+    // 执行启动健康检查
+    const performHealthCheck = async () => {
+      try {
+        const healthChecker = HealthChecker.getInstance()
+        const result = await healthChecker.performHealthCheck()
+
+        setHealthStatus(result.success ? 'healthy' : 'unhealthy')
+
+        if (result.success) {
+          // 启动运行时监控
+          healthChecker.startRuntimeMonitoring()
+        }
+      } catch (error) {
+        console.error('Health check failed:', error)
+        setHealthStatus('unhealthy')
+      }
+    }
+
+    performHealthCheck()
+  }, [])
 
   return (
     <div className={`app ${theme}`}>
@@ -18,6 +44,35 @@ function App() {
       </div>
       <h1>Vite + React + Electron</h1>
       <h2>现代化升级版：pnpm + Biome + SWC + Zustand</h2>
+
+      {/* 健康状态指示器 */}
+      <div
+        style={{
+          padding: '8px 12px',
+          borderRadius: '4px',
+          marginBottom: '16px',
+          backgroundColor:
+            healthStatus === 'healthy'
+              ? '#e8f5e8'
+              : healthStatus === 'unhealthy'
+                ? '#ffeaea'
+                : '#f0f0f0',
+          color:
+            healthStatus === 'healthy'
+              ? '#2e7d32'
+              : healthStatus === 'unhealthy'
+                ? '#d32f2f'
+                : '#666',
+          fontSize: '14px',
+        }}
+      >
+        状态:{' '}
+        {healthStatus === 'checking'
+          ? '检查中...'
+          : healthStatus === 'healthy'
+            ? '✅ 正常'
+            : '❌ 异常'}
+      </div>
 
       <div className="card">
         <div className="counter-controls">
@@ -53,6 +108,14 @@ function App() {
 
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <AppContent />
+    </ErrorBoundary>
   )
 }
 
