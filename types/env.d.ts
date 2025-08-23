@@ -18,12 +18,6 @@ interface ImportMetaEnv {
 
   /** Current app version */
   readonly VITE_APP_VERSION: string
-
-  /** Development mode flag */
-  readonly DEV: boolean
-
-  /** Distribution channel */
-  readonly VITE_DISTRIBUTION_CHANNEL: string
 }
 
 interface ImportMeta {
