@@ -49,5 +49,9 @@ runs:
           pnpm-${{ runner.os }}-
 
     - name: Install Dependencies
-      run: pnpm install --frozen-lockfile
+      run: |
+        pnpm install --frozen-lockfile
+        # 强制执行electron postinstall
+        cd node_modules/.pnpm/electron@*/node_modules/electron
+        node install.js
       shell: bash
