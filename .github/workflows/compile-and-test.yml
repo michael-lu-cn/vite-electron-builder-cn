@@ -3,11 +3,6 @@ name: Compile and test
 on:
   workflow_call:
     inputs:
-      renderer-template:
-        description: Define what vite template should be used to create renderer in case if renderer package doesn't exist
-        required: false
-        type: string
-        default: ''
       app-version:
         required: true
         type: string
@@ -38,7 +33,7 @@ jobs:
       - uses: ./.github/actions/init-template-with-renderer
         name: Setup boilerplate
         with:
-          renderer-template: ${{inputs.renderer-template}}
+          renderer-template: react-swc-ts
       - run: npm run typecheck --if-present
 
   compile:
@@ -55,7 +50,7 @@ jobs:
       - uses: ./.github/actions/init-template-with-renderer
         name: Setup boilerplate
         with:
-          renderer-template: ${{inputs.renderer-template}}
+          renderer-template: react-swc-ts
 
       - run: npm version "${{inputs.app-version}}" --no-git-tag-version
       - run: npm run compile -- -p never
