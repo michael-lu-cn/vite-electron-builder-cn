@@ -6,13 +6,14 @@ on:
   push:
     branches:
       - main
-      - 3-优化工具链-optimistic
     paths-ignore:
       - '**.md'
       - .editorconfig
       - '.idea/**'
       - '.vscode/**'
   pull_request:
+    branches:
+      - main
     paths-ignore:
       - '**.md'
       - .editorconfig
