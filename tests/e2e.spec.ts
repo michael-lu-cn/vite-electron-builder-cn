@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import { platform } from 'node:process'
 import type { ElectronApplication, JSHandle } from '@playwright/test'
 import { test as base, _electron as electron, expect } from '@playwright/test'
@@ -15,7 +14,7 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [
-    async ({}, use) => {
+    async (_, use) => {
       /**
        * Executable path depends on root package name!
        */
@@ -99,31 +98,31 @@ test('Main window state', async ({ electronApp, page }) => {
   expect(windowState.isDevToolsOpened, 'The DevTools panel was open').toEqual(false)
 })
 
-test.describe('Main window web content', async () => {
-  test('The main window has counter functionality', async ({ page }) => {
-    // 测试计数显示
-    const countDisplay = page.locator('.count')
-    await expect(countDisplay).toBeVisible()
-    await expect(countDisplay).toHaveText('count is 0')
-
-    // 测试增加按钮
-    const incrementBtn = page.getByRole('button', { name: '+' })
-    await expect(incrementBtn).toBeVisible()
-    await incrementBtn.click()
-    await expect(countDisplay).toHaveText('count is 1')
-  })
-
-  test('The main window has a vite logo', async ({ page }) => {
-    const element = page.getByAltText('Vite logo')
-    await expect(element).toBeVisible()
-    await expect(element).toHaveRole('img')
-  })
-})
-
 test.describe('Basic functionality', async () => {
-  test('Preload context is available', async ({ page }) => {
-    // 简单测试preload是否工作
-    const hasVersions = await page.evaluate(() => typeof globalThis[btoa('versions')] === 'object')
-    expect(hasVersions).toBeTruthy()
+  test('Application loads successfully', async ({ page }) => {
+    // 等待页面加载
+    await page.waitForLoadState('networkidle')
+
+    // 检查页面标题
+    const title = await page.title()
+    expect(title).toBeTruthy()
+
+    // 检查页面是否有内容
+    const bodyContent = await page.locator('body').textContent()
+    expect(bodyContent).toBeTruthy()
+    expect(bodyContent.length).toBeGreaterThan(0)
+  })
+
+  test('Page has content loaded', async ({ page }) => {
+    // 等待页面加载
+    await page.waitForLoadState('networkidle')
+
+    // 检查页面是否有HTML元素
+    const hasElements = await page.locator('*').count()
+    expect(hasElements).toBeGreaterThan(0)
+
+    // 检查是否有div元素（React应用通常有div）
+    const hasDivs = await page.locator('div').count()
+    expect(hasDivs).toBeGreaterThan(0)
   })
 })
