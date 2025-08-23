@@ -41,7 +41,7 @@ export class Logger {
 
   private registerIpcHandlers() {
     // 处理渲染进程的错误日志
-    ipcMain.handle('log-error', async (event, type: string, errorData: any) => {
+    ipcMain.handle('log-error', async (_event, type: string, errorData: any) => {
       await this.logError(type, errorData)
       return true
     })
@@ -52,7 +52,7 @@ export class Logger {
     })
 
     // 显示消息对话框
-    ipcMain.handle('show-message', async (event, message: string) => {
+    ipcMain.handle('show-message', async (_event, message: string) => {
       const result = await dialog.showMessageBox({
         type: 'info',
         title: '消息',
@@ -86,7 +86,7 @@ export class Logger {
       data,
     }
 
-    const logLine = JSON.stringify(logEntry) + '\n'
+    const logLine = `${JSON.stringify(logEntry)}\n`
 
     try {
       await appendFile(this.logFile, logLine)
@@ -111,7 +111,7 @@ export class Logger {
       },
     }
 
-    const errorLine = JSON.stringify(errorEntry) + '\n'
+    const errorLine = `${JSON.stringify(errorEntry)}\n`
 
     try {
       // 写入错误日志文件

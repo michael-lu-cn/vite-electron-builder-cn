@@ -26,6 +26,25 @@
       }
     }
   },
+  "overrides": [
+    {
+      "includes": [
+        "packages/main/src/modules/Logger.ts",
+        "packages/preload/src/index.ts",
+        "types/env.d.ts",
+        "packages/renderer/src/components/ErrorBoundary.tsx",
+        "packages/renderer/src/utils/healthCheck.ts",
+        "packages/main/src/modules/ChromeDevToolsExtension.ts"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    }
+  ],
   "javascript": {
     "formatter": {
       "quoteStyle": "single",

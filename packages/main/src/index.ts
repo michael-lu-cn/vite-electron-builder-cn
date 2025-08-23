@@ -12,7 +12,7 @@ import { createWindowManagerModule } from './modules/WindowManager.js'
 
 export async function initApp(initConfig: AppInitConfig) {
   // 初始化日志系统
-  const logger = new Logger()
+  const _logger = new Logger()
 
   const moduleRunner = createModuleRunner()
     .init(createWindowManagerModule({ initConfig, openDevTools: import.meta.env.DEV }))
