@@ -1,3 +1,4 @@
+import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { initApp } from '@app/main'
 
@@ -34,6 +35,6 @@ initApp({
         },
 
   preload: {
-    path: fileURLToPath(new URL('./preload/dist/exposed.mjs', import.meta.url)),
+    path: join(dirname(fileURLToPath(import.meta.url)), 'preload', 'dist', 'exposed.mjs'),
   },
 })

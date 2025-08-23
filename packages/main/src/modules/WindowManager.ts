@@ -1,4 +1,4 @@
-import { BrowserWindow, app as electronApp } from 'electron'
+import { BrowserWindow } from 'electron'
 import type { AppInitConfig } from '../AppInitConfig.js'
 import type { AppModule } from '../AppModule.js'
 import type { ModuleContext } from '../ModuleContext.js'
@@ -25,32 +25,6 @@ class WindowManager implements AppModule {
   }
 
   async createWindow(): Promise<BrowserWindow> {
-    // Resolve preload path: when app is packaged and preload was unpacked by builder,
-    // construct path relative to resourcesPath -> app.asar.unpacked
-    let preloadPath = this.#preload.path
-
-    // If the preload file exists in app.asar.unpacked, prefer that location at runtime.
-    if (electronApp.isPackaged) {
-      try {
-        const { join } = await import('node:path')
-        const { access } = await import('node:fs/promises')
-        const resourcesPath = (process as unknown as { resourcesPath?: string }).resourcesPath || ''
-        const unpacked = join(
-          resourcesPath,
-          'app.asar.unpacked',
-          'packages',
-          'preload',
-          'dist',
-          'exposed.mjs'
-        )
-        // check existence
-        await access(unpacked)
-        preloadPath = unpacked
-      } catch {
-        // fallback to provided path (may be inside asar)
-      }
-    }
-
     const browserWindow = new BrowserWindow({
       show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
       webPreferences: {
@@ -58,7 +32,7 @@ class WindowManager implements AppModule {
         contextIsolation: true,
         sandbox: false, // Sandbox disabled because the demo of preload script depend on the Node.js api
         webviewTag: false, // The webview tag is not recommended. Consider alternatives like an iframe or Electron's BrowserView. @see https://www.electronjs.org/docs/latest/api/webview-tag#warning
-        preload: preloadPath,
+        preload: this.#preload.path,
       },
     })
 
