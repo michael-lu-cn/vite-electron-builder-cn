@@ -49,9 +49,15 @@ jobs:
         name: Setup boilerplate
 
       - run: pnpm version "${{inputs.app-version}}" --no-git-tag-version
-      - run: pnpm run compile -- -p never
+      - run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            pnpm run compile
+          else
+            pnpm run compile -- -p never
+          fi
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - run: pnpm run test
         if: matrix.os != 'ubuntu-latest'
