@@ -77,25 +77,27 @@ function AppContent() {
         </div>
 
         <div className="card">
-          <div className="counter-controls">
-            <Button onClick={decrement} className="bg-gray-100">
-              -
-            </Button>
-            <span className="count">{count}</span>
-            <Button onClick={increment} className="bg-gray-100">
-              +
-            </Button>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              <Button onClick={decrement} className="btn btn-ghost">
+                -
+              </Button>
+              <span className="count">{count}</span>
+              <Button onClick={increment} className="btn btn-ghost">
+                +
+              </Button>
+            </div>
           </div>
-          <div className="actions">
-            <Button onClick={reset} className="reset-btn">
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 12, marginTop: 16 }}>
+            <Button onClick={reset} className="btn btn-danger">
               Reset
             </Button>
-            <Button onClick={toggleTheme} className="theme-btn">
+            <Button onClick={toggleTheme} className="btn btn-primary">
               Switch to {theme === 'light' ? 'dark' : 'light'}
             </Button>
           </div>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR!!!
+          <p style={{ marginTop: 12 }}>
+            Edit <code>src/App.tsx</code> and save to test HMR
           </p>
         </div>
 
