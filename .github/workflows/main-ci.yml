@@ -1,8 +1,9 @@
-# PR validation workflow - only runs on pull requests
-name: PR Validation
+# Main branch CI workflow - runs on push to main
+name: Main Branch CI
 
 on:
-  pull_request:
+  workflow_dispatch:
+  push:
     branches:
       - main
     paths-ignore:
@@ -12,21 +13,20 @@ on:
       - '.vscode/**'
 
 concurrency:
-  group: ${{github.workflow}}-${{ github.ref }}
+  group: main-ci-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: write
 
 jobs:
-  validate-pr:
-    name: Validate PR - TypeScript + React
-    uses: ./.github/workflows/compile-and-test.yml
+  main-ci:
+    name: Main Branch CI - TypeScript + React
+    uses: ./.github/workflows/ci.yml
     with:
-      app-version: "0.0.0-pr.${{ github.event.number }}"
-      distribution-channel: pr-validation
+      distribution-channel: react-swc-ts
     permissions:
-      contents: read
+      contents: write
       id-token: write
       attestations: write
 
@@ -35,7 +35,7 @@ jobs:
       contents: write
       pull-requests: write
     needs:
-      - run-ci
+      - main-ci
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:

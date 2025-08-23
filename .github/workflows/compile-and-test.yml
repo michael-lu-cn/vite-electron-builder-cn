@@ -22,6 +22,7 @@ permissions:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
 
 jobs:
   typeckeck:
@@ -51,7 +52,14 @@ jobs:
           renderer-template: react-swc-ts
 
       - run: pnpm version "${{inputs.app-version}}" --no-git-tag-version
-      - run: pnpm run compile -- -p never
+
+      - name: Build for PR validation
+        if: inputs.distribution-channel == 'pr-validation'
+        run: pnpm run build
+
+      - name: Compile for release
+        if: inputs.distribution-channel != 'pr-validation'
+        run: pnpm run compile -- -p never
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
 
@@ -62,6 +70,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
 
       - uses: actions/attest-build-provenance@v2
+        if: inputs.distribution-channel != 'pr-validation'
         with:
           subject-path: "dist/root*, dist/latest*.yml"
 
