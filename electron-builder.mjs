@@ -41,6 +41,8 @@ export default /** @type import('electron-builder').Configuration */
     '!node_modules/@app/*/tsconfig.*',
     ...(await getListOfFilesFromEachWorkspace()),
   ],
+  // Ensure preload files are unpacked so ESM/CJS loader can load them from filesystem
+  asarUnpack: ['packages/preload/dist/**'],
 })
 
 /**
