@@ -51,15 +51,4 @@ jobs:
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
       distribution-channel: ${{inputs.distribution-channel}}
 
-  deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-    needs:
-      - prepare
-      - compile-and-test
-    uses: ./.github/workflows/deploy.yml
-    with:
-      distribution-channel: ${{ inputs.distribution-channel }}
-      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
-    secrets: inherit
+# deploy job已移除，因为electron-builder在main分支会直接发布到GitHub
