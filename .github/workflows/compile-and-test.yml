@@ -70,10 +70,10 @@ jobs:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: pnpm run test
+      - run: npx playwright test
         if: matrix.os != 'ubuntu-latest'
 
-      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm run test
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npx playwright test
         if: matrix.os == 'ubuntu-latest'
 
       - uses: actions/attest-build-provenance@v2

@@ -44,7 +44,7 @@ jobs:
         run: pnpm run build
 
       - name: Run Tests
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- pnpm run test
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npx playwright test
 
   dependabot:
     permissions:
