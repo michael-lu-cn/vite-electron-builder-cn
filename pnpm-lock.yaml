@@ -42,9 +42,6 @@ importers:
       glob:
         specifier: 11.0.3
         version: 11.0.3
-      playwright:
-        specifier: ^1.55.0
-        version: 1.55.0
       terser:
         specifier: ^5.43.1
         version: 5.43.1
