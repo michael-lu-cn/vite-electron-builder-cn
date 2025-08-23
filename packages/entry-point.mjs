@@ -1,5 +1,5 @@
-import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { initApp } from '@app/main'
 
 if (
