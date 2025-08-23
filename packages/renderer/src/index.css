@@ -1,7 +1,7 @@
+/* 使用已生成（或占位）的 tailwind 输出文件以保持兼容性。若你在本地希望启用 Tailwind，请执行：
+   pnpm -w exec tailwindcss -i packages/renderer/src/index.css -o packages/renderer/src/tailwind-output.css --minify
+   生成后项目会从 `packages/renderer/src/tailwind-output.css` 中加载样式。 */
 @import "./tailwind-output.css";
-
-/* Tailwind 指令已移除（我们使用生成的 tailwind 输出文件实现 Tailwind 样式）。
-   若要重新生成，请运行 `pnpm -w exec tailwindcss -i packages/renderer/src/index.css -o packages/renderer/src/tailwind-output.css` */
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
