@@ -39,7 +39,7 @@ runs:
       shell: bash
       if: inputs.renderer-template != '' && steps.check-renderer.outputs.RENDERER_EXIST == 'false'
 
-    - name: Cache Dependencies
+    - name: Cache pnpm store
       uses: actions/cache@v4
       with:
         path: ~/.pnpm-store
@@ -47,11 +47,37 @@ runs:
         restore-keys: |
           pnpm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
+    - name: Cache Electron binaries
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/electron
+        key: electron-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          electron-${{ runner.os }}-
+
     - name: Install Dependencies
       run: >-
         if [ "${{ steps.check-renderer.outputs.RENDERER_EXIST }}" == "true" ] && [ -f "pnpm-lock.yaml" ]; then
           pnpm install --frozen-lockfile
         else
           pnpm install
+        fi
+      shell: bash
+      env:
+        ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
+        ELECTRON_CACHE: ~/.cache/electron
+
+    - name: Verify Electron Installation
+      run: |
+        echo "Checking Electron installation..."
+        if ! pnpm exec electron --version; then
+          echo "Electron installation failed, attempting to fix..."
+          # Find electron directory
+          ELECTRON_DIR=$(find node_modules/.pnpm -name "electron@*" -type d | head -1)
+          if [ -n "$ELECTRON_DIR" ]; then
+            cd "$ELECTRON_DIR/node_modules/electron"
+            echo "Running install.js manually..."
+            ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ node install.js
+          fi
         fi
       shell: bash
