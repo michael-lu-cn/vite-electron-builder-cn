@@ -43,37 +43,11 @@ runs:
     - name: Cache Dependencies
       uses: actions/cache@v4
       with:
-        path: |
-          ~/.pnpm-store
-          ~/.cache/electron
-          ~/.cache/electron-builder
-        key: deps-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        path: ~/.pnpm-store
+        key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          deps-${{ runner.os }}-
+          pnpm-${{ runner.os }}-
 
     - name: Install Dependencies
-      run: >-
-        if [ "${{ steps.check-renderer.outputs.RENDERER_EXIST }}" == "true" ] && [ -f "pnpm-lock.yaml" ]; then
-          pnpm install --frozen-lockfile
-        else
-          pnpm install
-        fi
+      run: pnpm install --frozen-lockfile
       shell: bash
-      env:
-        # 确保Electron能正确下载
-        ELECTRON_CACHE: ~/.cache/electron
-        ELECTRON_BUILDER_CACHE: ~/.cache/electron-builder
-
-    - name: Post-install Electron setup
-      run: |
-        # 确保Electron二进制文件正确安装
-        echo "Checking Electron installation..."
-        if ! pnpm exec electron --version 2>/dev/null; then
-          echo "Electron not working, running post-install..."
-          # 运行electron的post-install脚本
-          cd node_modules/.pnpm/electron@*/node_modules/electron && npm run postinstall || true
-        fi
-      shell: bash
-      env:
-        ELECTRON_CACHE: ~/.cache/electron
-        ELECTRON_BUILDER_CACHE: ~/.cache/electron-builder

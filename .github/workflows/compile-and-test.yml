@@ -24,11 +24,6 @@ env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
   npm_config_audit: false
   npm_config_fund: false
-  # Electron相关环境变量
-  ELECTRON_CACHE: ~/.cache/electron
-  ELECTRON_BUILDER_CACHE: ~/.cache/electron-builder
-  # 确保Electron正确下载
-  ELECTRON_SKIP_BINARY_DOWNLOAD: false
 
 jobs:
   typecheck:
