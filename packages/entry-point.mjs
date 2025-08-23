@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
 import { initApp } from '@app/main'
 
 if (
@@ -34,6 +35,6 @@ initApp({
         },
 
   preload: {
-    path: fileURLToPath(new URL('./preload/dist/exposed.mjs', import.meta.url)),
+    path: join(dirname(fileURLToPath(import.meta.url)), 'preload', 'dist', 'exposed.mjs'),
   },
 })
