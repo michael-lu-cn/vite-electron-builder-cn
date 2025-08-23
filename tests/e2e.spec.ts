@@ -1,10 +1,9 @@
 import { createHash } from 'node:crypto'
 import { platform } from 'node:process'
-import { test as base, expect } from '@playwright/test'
+import type { ElectronApplication, JSHandle } from '@playwright/test'
+import { test as base, _electron as electron, expect } from '@playwright/test'
 import type { BrowserWindow } from 'electron'
 import { globSync } from 'glob'
-import type { ElectronApplication, JSHandle } from '@playwright/test'
-import { _electron as electron } from '@playwright/test'
 
 process.env.PLAYWRIGHT_TEST = 'true'
 
@@ -16,6 +15,7 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [
+    // biome-ignore lint/correctness/noEmptyPattern: Playwright fixture pattern
     async ({}, use) => {
       /**
        * Executable path depends on root package name!
