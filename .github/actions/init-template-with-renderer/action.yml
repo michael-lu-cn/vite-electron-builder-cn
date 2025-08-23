@@ -19,10 +19,6 @@ runs:
       with:
         node-version: 'latest'
 
-    - uses: pnpm/action-setup@v4
-      with:
-        version: latest
-
     - name: Check if renderer directory exists
       id: check-renderer
       run: >-
@@ -34,50 +30,24 @@ runs:
       shell: bash
 
     - run: |
-        pnpm run create-renderer -- -- --template ${{inputs.renderer-template}}
-        pnpm --filter @app/integrate-renderer start
+        npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+        npm start --workspace @app/integrate-renderer
       shell: bash
       if: inputs.renderer-template != '' && steps.check-renderer.outputs.RENDERER_EXIST == 'false'
 
-    - name: Cache pnpm store
+    - name: Cache Dependencies
       uses: actions/cache@v4
       with:
-        path: ~/.pnpm-store
-        key: pnpm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        path: node_modules
+        key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
         restore-keys: |
-          pnpm-${{ runner.os }}-${{ inputs.renderer-template }}-
-
-    - name: Cache Electron binaries
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/electron
-        key: electron-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-        restore-keys: |
-          electron-${{ runner.os }}-
+          npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
     - name: Install Dependencies
       run: >-
-        if [ "${{ steps.check-renderer.outputs.RENDERER_EXIST }}" == "true" ] && [ -f "pnpm-lock.yaml" ]; then
-          pnpm install --frozen-lockfile
+        if [ "${{ steps.check-renderer.outputs.RENDERER_EXIST }}" == "true" ] && [ -f "package-lock.json" ]; then
+          npm ci
         else
-          pnpm install
-        fi
-      shell: bash
-      env:
-        ELECTRON_MIRROR: https://npmmirror.com/mirrors/electron/
-        ELECTRON_CACHE: ~/.cache/electron
-
-    - name: Verify Electron Installation
-      run: |
-        echo "Checking Electron installation..."
-        if ! pnpm exec electron --version; then
-          echo "Electron installation failed, attempting to fix..."
-          # Find electron directory
-          ELECTRON_DIR=$(find node_modules/.pnpm -name "electron@*" -type d | head -1)
-          if [ -n "$ELECTRON_DIR" ]; then
-            cd "$ELECTRON_DIR/node_modules/electron"
-            echo "Running install.js manually..."
-            ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ node install.js
-          fi
+          npm install
         fi
       shell: bash

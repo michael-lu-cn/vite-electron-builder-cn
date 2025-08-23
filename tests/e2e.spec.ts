@@ -1,9 +1,10 @@
 import { createHash } from 'node:crypto'
 import { platform } from 'node:process'
-import type { ElectronApplication, JSHandle } from '@playwright/test'
-import { test as base, _electron as electron, expect } from '@playwright/test'
+import { test as base, expect } from '@playwright/test'
 import type { BrowserWindow } from 'electron'
 import { globSync } from 'glob'
+import type { ElectronApplication, JSHandle } from 'playwright'
+import { _electron as electron } from 'playwright'
 
 process.env.PLAYWRIGHT_TEST = 'true'
 
@@ -15,24 +16,20 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [
-    // biome-ignore lint/correctness/noEmptyPattern: Playwright fixture pattern
-    async ({}, use) => {
+    async (_fixtures, use) => {
       /**
        * Executable path depends on root package name!
        */
       let executablePattern = 'dist/*/root{,.*}'
       if (platform === 'darwin') {
-        executablePattern = 'dist/mac/root.app/Contents/MacOS/root'
+        executablePattern += '/Contents/*/root'
       }
 
       const [executablePath] = globSync(executablePattern)
       if (!executablePath) {
-        console.log('Pattern:', executablePattern)
-        console.log('Available files:', globSync('dist/**/*'))
         throw new Error('App Executable path not found')
       }
 
-      console.log('Launching Electron with path:', executablePath)
       const electronApp = await electron.launch({
         executablePath: executablePath,
         args: ['--no-sandbox'],

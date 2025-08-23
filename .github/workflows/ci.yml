@@ -48,6 +48,7 @@ jobs:
       attestations: write
     uses: ./.github/workflows/compile-and-test.yml
     with:
+      renderer-template: ${{ inputs.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
       distribution-channel: ${{inputs.distribution-channel}}
 
@@ -60,5 +61,5 @@ jobs:
       - compile-and-test
     uses: ./.github/workflows/deploy.yml
     with:
-      distribution-channel: ${{ inputs.distribution-channel }}
+      distribution-channel: ${{ inputs.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}

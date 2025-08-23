@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# 1. 代码质量检查
+echo "📝 Checking code quality with Biome..."
+pnpm lint
+if [ $? -ne 0 ]; then
+  echo "❌ Lint check failed. Please fix the issues and try again."
+  exit 1
+fi
+
+# 2. TypeScript 类型检查
+echo "🔧 Running TypeScript type check..."
+pnpm typecheck
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript check failed. Please fix the type errors and try again."
+  exit 1
+fi
+
+# 3. 构建检查
+echo "🏗️ Testing build..."
+pnpm build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed. Please fix the build errors and try again."
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
+echo "💡 Tip: Run 'pnpm compile && pnpm test' to test the packaged app before pushing."
