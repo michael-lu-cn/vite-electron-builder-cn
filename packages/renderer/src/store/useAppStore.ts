@@ -14,12 +14,12 @@ export const useAppStore = create<AppState>()(
   devtools(
     (set) => ({
       count: 0,
-      theme: 'light',
-      increment: () => set((state) => ({ count: state.count + 1 }), false, 'increment'),
-      decrement: () => set((state) => ({ count: state.count - 1 }), false, 'decrement'),
+      theme: 'light' as const,
+      increment: () => set((state: AppState) => ({ count: state.count + 1 }), false, 'increment'),
+      decrement: () => set((state: AppState) => ({ count: state.count - 1 }), false, 'decrement'),
       toggleTheme: () =>
         set(
-          (state) => ({
+          (state: AppState) => ({
             theme: state.theme === 'light' ? 'dark' : 'light',
           }),
           false,

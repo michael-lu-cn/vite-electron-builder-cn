@@ -1,15 +1,30 @@
 import { execSync } from 'node:child_process'
 
 function getElectronEnv() {
-  return JSON.parse(
-    execSync(`npx electron -p "JSON.stringify(process.versions)"`, {
-      encoding: 'utf-8',
-      env: {
-        ...process.env,
-        ELECTRON_RUN_AS_NODE: 1,
-      },
-    })
-  )
+  // 在pnpm workspace中，优先使用pnpm exec
+  const commands = [
+    'pnpm exec electron -p "JSON.stringify(process.versions)"',
+    'npx electron -p "JSON.stringify(process.versions)"'
+  ]
+
+  for (const cmd of commands) {
+    try {
+      return JSON.parse(
+        execSync(cmd, {
+          encoding: 'utf-8',
+          env: {
+            ...process.env,
+            ELECTRON_RUN_AS_NODE: 1,
+          },
+        })
+      )
+    } catch (error) {
+      console.warn(`Command "${cmd}" failed:`, error.message)
+      continue
+    }
+  }
+
+  throw new Error('Failed to get Electron versions with all available methods')
 }
 
 function createElectronEnvLoader() {
