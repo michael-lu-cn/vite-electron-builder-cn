@@ -2,7 +2,7 @@ import { app } from 'electron'
 import type { AppModule } from './AppModule.js'
 import type { ModuleContext } from './ModuleContext.js'
 
-class ModuleRunner implements PromiseLike<void> {
+class ModuleRunner {
   #promise: Promise<void>
 
   constructor() {
