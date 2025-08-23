@@ -34,6 +34,6 @@ initApp({
         },
 
   preload: {
-    path: fileURLToPath(new URL('./preload/dist/exposed.mjs', import.meta.url)),
+    path: fileURLToPath(import.meta.resolve('@app/preload/exposed.mjs')),
   },
 })
