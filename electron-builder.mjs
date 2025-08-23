@@ -13,6 +13,18 @@ export default /** @type import('electron-builder').Configuration */
   linux: {
     target: ['deb'],
   },
+  mac: {
+    target: [
+      {
+        target: 'zip',
+        arch: ['arm64', 'x64']
+      }
+    ],
+    // 在CI环境中跳过DMG构建，避免hdiutil权限问题
+    ...(process.env.CI && {
+      target: [{ target: 'zip', arch: ['arm64', 'x64'] }]
+    })
+  },
   /**
    * It is recommended to avoid using non-standard characters such as spaces in artifact names,
    * as they can unpredictably change during deployment, making them impossible to locate and download for update.
