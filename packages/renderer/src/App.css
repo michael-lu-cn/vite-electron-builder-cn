@@ -1,12 +1,32 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* 让根容器铺满窗口，避免将 UI 局中为小块区域 */
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 确保 html/body 以及 root 都铺满窗口 */
+html,
+body,
+#root {
+  height: 100%;
 }
 
 .app {
   transition: all 0.3s ease;
+  /* 让 app 背景/容器填充整个窗口高度，并保持内容最大宽度居中 */
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* 局部内容限制宽度，保持桌面端布局 */
+.app .container {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .app.dark {
@@ -58,38 +78,70 @@
 .counter-controls {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
 }
 
+.counter-controls button {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  color: #213547; /* 确保 + - 文本在白色按钮上可见 */
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .count {
-  font-size: 1.2em;
-  font-weight: bold;
-  min-width: 120px;
+  font-size: 1.6rem;
+  font-weight: 700;
+  min-width: 140px;
+  text-align: center;
+}
+
+/* Actions row for reset / theme buttons */
+.card .actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
 }
 
 .reset-btn,
 .theme-btn {
-  margin: 0.5rem;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  margin: 0;
+  padding: 0.45em 0.9em;
+  font-size: 0.95rem;
+  font-weight: 600;
   font-family: inherit;
   background-color: #f9f9f9;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.reset-btn:hover,
-.theme-btn:hover {
-  border-color: #646cff;
+.reset-btn {
+  background-color: #fff5f5;
+  color: #b00020;
+  border-color: rgba(176, 0, 32, 0.12);
+}
+.reset-btn:hover {
+  background-color: #ffecec;
 }
 
 .theme-btn {
   background-color: #646cff;
   color: white;
 }
-
 .theme-btn:hover {
   background-color: #535bf2;
 }

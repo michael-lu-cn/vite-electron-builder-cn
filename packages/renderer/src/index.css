@@ -1,3 +1,6 @@
+/* Tailwind 指令已移除（当前使用手写 CSS 作为快速替代）。
+   若要启用 Tailwind，请生成 tailwind 输出并将其引入。 */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +14,52 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Basic UI tokens for non-Tailwind fallback */
+.app-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+}
+.app-subtitle {
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.brand-row {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+.btn-ghost {
+  background: #ffffff;
+  color: #111827;
+}
+.btn-primary {
+  background: #6366f1;
+  color: white;
+}
+.btn-danger {
+  background: #fff5f5;
+  color: #b00020;
+  border-color: rgba(176, 0, 32, 0.12);
+}
+
+.ui-button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
 }
 
 a {
