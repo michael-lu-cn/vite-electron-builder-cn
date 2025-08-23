@@ -9,6 +9,9 @@ on:
       distribution-channel:
         required: true
         type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 permissions:
   contents: write
@@ -39,4 +42,4 @@ jobs:
 
       - run: gh release create v${{inputs.app-version}} dist/root* dist/latest*.yml --repo ${{github.repository}}
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
