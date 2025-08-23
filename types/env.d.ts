@@ -29,3 +29,28 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+// Electron API 类型定义
+interface ElectronAPI {
+  platform: string
+  versions: Record<string, string>
+  logError: (type: string, errorData: any) => Promise<boolean>
+  getLogPath: () => Promise<string>
+  showMessage: (message: string) => Promise<any>
+  getAppInfo: () => Promise<{
+    name: string
+    version: string
+    platform: string
+    arch: string
+    electronVersion: string
+    nodeVersion: string
+    userDataPath: string
+    logPath: string
+  }>
+}
+
+declare global {
+  interface Window {
+    electronAPI?: ElectronAPI
+  }
+}
