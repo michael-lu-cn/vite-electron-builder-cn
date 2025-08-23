@@ -15,7 +15,7 @@ defaults:
     shell: 'bash'
 
 permissions:
-  contents: write
+  contents: read
   id-token: write
   attestations: write
 
