@@ -59,7 +59,9 @@ jobs:
 
       - name: Compile for release
         if: inputs.distribution-channel != 'pr-validation'
-        run: pnpm run compile -- -p never
+        run: |
+          pnpm run build
+          pnpm exec electron-builder build --config electron-builder.mjs -p never
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
 
