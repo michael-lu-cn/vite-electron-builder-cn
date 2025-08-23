@@ -34,6 +34,17 @@ initApp({
         },
 
   preload: {
-    path: fileURLToPath(import.meta.resolve('@app/preload/exposed.mjs')),
+    path: (() => {
+      try {
+        // 尝试使用模块解析（开发环境）
+        return fileURLToPath(import.meta.resolve('@app/preload/exposed.mjs'))
+      } catch (_error) {
+        // 回退到相对路径（生产环境）
+        console.log('Using fallback preload path for production')
+        return fileURLToPath(
+          new URL('./node_modules/@app/preload/dist/exposed.mjs', import.meta.url)
+        )
+      }
+    })(),
   },
 })
