@@ -1,7 +1,7 @@
-import { app, ipcMain, dialog } from 'electron'
-import { writeFile, mkdir, appendFile } from 'node:fs/promises'
-import { join } from 'node:path'
 import { existsSync } from 'node:fs'
+import { appendFile, mkdir, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { app, dialog, ipcMain } from 'electron'
 
 export class Logger {
   private logDir: string
@@ -32,9 +32,8 @@ export class Logger {
         arch: process.arch,
         electronVersion: process.versions.electron,
         nodeVersion: process.versions.node,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       })
-
     } catch (error) {
       console.error('Failed to initialize logger:', error)
     }
@@ -58,7 +57,7 @@ export class Logger {
         type: 'info',
         title: '消息',
         message: message,
-        buttons: ['确定']
+        buttons: ['确定'],
       })
       return result
     })
@@ -73,7 +72,7 @@ export class Logger {
         electronVersion: process.versions.electron,
         nodeVersion: process.versions.node,
         userDataPath: app.getPath('userData'),
-        logPath: this.logDir
+        logPath: this.logDir,
       }
     })
   }
@@ -84,7 +83,7 @@ export class Logger {
       timestamp,
       level,
       message,
-      data
+      data,
     }
 
     const logLine = JSON.stringify(logEntry) + '\n'
@@ -108,8 +107,8 @@ export class Logger {
         arch: process.arch,
         nodeVersion: process.versions.node,
         electronVersion: process.versions.electron,
-        appVersion: app.getVersion()
-      }
+        appVersion: app.getVersion(),
+      },
     }
 
     const errorLine = JSON.stringify(errorEntry) + '\n'
@@ -117,10 +116,10 @@ export class Logger {
     try {
       // 写入错误日志文件
       await appendFile(this.errorLogFile, errorLine)
-      
+
       // 也写入普通日志
       await this.log('error', `${type} error occurred`, errorData)
-      
+
       console.error(`[ERROR] ${type}:`, errorData)
     } catch (error) {
       console.error('Failed to write error log:', error)
@@ -139,7 +138,7 @@ export class Logger {
         if (file.endsWith('.log')) {
           const filePath = join(this.logDir, file)
           const stats = await stat(filePath)
-          
+
           if (now - stats.mtime.getTime() > maxAge) {
             await unlink(filePath)
             await this.log('info', `Cleaned up old log file: ${file}`)
@@ -155,17 +154,20 @@ export class Logger {
   async getRecentErrors(limit: number = 50): Promise<any[]> {
     try {
       const { readFile } = await import('node:fs/promises')
-      
+
       if (!existsSync(this.errorLogFile)) {
         return []
       }
 
       const content = await readFile(this.errorLogFile, 'utf-8')
-      const lines = content.trim().split('\n').filter(line => line.length > 0)
-      
+      const lines = content
+        .trim()
+        .split('\n')
+        .filter((line) => line.length > 0)
+
       const errors = lines
         .slice(-limit) // 获取最后N行
-        .map(line => {
+        .map((line) => {
           try {
             return JSON.parse(line)
           } catch {
@@ -187,7 +189,7 @@ export class Logger {
       const { readFile } = await import('node:fs/promises')
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
       const exportPath = join(app.getPath('desktop'), `app-logs-${timestamp}.txt`)
-      
+
       let content = `Application Logs Export\n`
       content += `Generated: ${new Date().toISOString()}\n`
       content += `App Version: ${app.getVersion()}\n`

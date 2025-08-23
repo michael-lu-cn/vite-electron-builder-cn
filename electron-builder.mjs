@@ -17,13 +17,13 @@ export default /** @type import('electron-builder').Configuration */
     target: [
       {
         target: 'zip',
-        arch: ['arm64', 'x64']
-      }
+        arch: ['arm64', 'x64'],
+      },
     ],
     // 在CI环境中跳过DMG构建，避免hdiutil权限问题
     ...(process.env.CI && {
-      target: [{ target: 'zip', arch: ['arm64', 'x64'] }]
-    })
+      target: [{ target: 'zip', arch: ['arm64', 'x64'] }],
+    }),
   },
   /**
    * It is recommended to avoid using non-standard characters such as spaces in artifact names,

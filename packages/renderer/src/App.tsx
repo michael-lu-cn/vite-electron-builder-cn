@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import viteLogo from '/vite.svg'
 import reactLogo from './assets/react.svg'
 import './App.css'
-import { useAppStore } from './store/useAppStore'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { useAppStore } from './store/useAppStore'
 import { HealthChecker } from './utils/healthCheck'
 
 function AppContent() {
@@ -46,18 +46,32 @@ function AppContent() {
       <h2>现代化升级版：pnpm + Biome + SWC + Zustand</h2>
 
       {/* 健康状态指示器 */}
-      <div style={{
-        padding: '8px 12px',
-        borderRadius: '4px',
-        marginBottom: '16px',
-        backgroundColor: healthStatus === 'healthy' ? '#e8f5e8' :
-                        healthStatus === 'unhealthy' ? '#ffeaea' : '#f0f0f0',
-        color: healthStatus === 'healthy' ? '#2e7d32' :
-               healthStatus === 'unhealthy' ? '#d32f2f' : '#666',
-        fontSize: '14px'
-      }}>
-        状态: {healthStatus === 'checking' ? '检查中...' :
-               healthStatus === 'healthy' ? '✅ 正常' : '❌ 异常'}
+      <div
+        style={{
+          padding: '8px 12px',
+          borderRadius: '4px',
+          marginBottom: '16px',
+          backgroundColor:
+            healthStatus === 'healthy'
+              ? '#e8f5e8'
+              : healthStatus === 'unhealthy'
+                ? '#ffeaea'
+                : '#f0f0f0',
+          color:
+            healthStatus === 'healthy'
+              ? '#2e7d32'
+              : healthStatus === 'unhealthy'
+                ? '#d32f2f'
+                : '#666',
+          fontSize: '14px',
+        }}
+      >
+        状态:{' '}
+        {healthStatus === 'checking'
+          ? '检查中...'
+          : healthStatus === 'healthy'
+            ? '✅ 正常'
+            : '❌ 异常'}
       </div>
 
       <div className="card">

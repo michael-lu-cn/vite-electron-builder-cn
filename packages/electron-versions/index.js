@@ -4,7 +4,7 @@ function getElectronEnv() {
   // 在pnpm workspace中，优先使用pnpm exec
   const commands = [
     'pnpm exec electron -p "JSON.stringify(process.versions)"',
-    'npx electron -p "JSON.stringify(process.versions)"'
+    'npx electron -p "JSON.stringify(process.versions)"',
   ]
 
   for (const cmd of commands) {
@@ -20,7 +20,6 @@ function getElectronEnv() {
       )
     } catch (error) {
       console.warn(`Command "${cmd}" failed:`, error.message)
-      continue
     }
   }
 

@@ -27,12 +27,12 @@ export class HealthChecker {
       electronAPI: false,
       localStorage: false,
       zustand: false,
-      react: false
+      react: false,
     }
 
     // 检查 Electron API
     try {
-      checks.electronAPI = typeof window.electronAPI !== 'undefined'
+      checks.electronAPI = typeof (window as any).electronAPI !== 'undefined'
       if (!checks.electronAPI) {
         errors.push('Electron API not available')
       }
@@ -81,14 +81,14 @@ export class HealthChecker {
       success: errors.length === 0,
       checks,
       errors,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }
 
     this.checkResults = result
-    
+
     // 记录健康检查结果
     this.logHealthCheck(result)
-    
+
     return result
   }
 
@@ -97,11 +97,11 @@ export class HealthChecker {
       type: 'health-check',
       result,
       userAgent: navigator.userAgent,
-      timestamp: result.timestamp
+      timestamp: result.timestamp,
     }
 
-    if (window.electronAPI?.logError) {
-      window.electronAPI.logError('health-check', logData)
+    if ((window as any).electronAPI?.logError) {
+      ;(window as any).electronAPI.logError('health-check', logData)
     }
 
     if (result.success) {
@@ -124,7 +124,7 @@ export class HealthChecker {
         filename: event.filename,
         lineno: event.lineno,
         colno: event.colno,
-        error: event.error?.stack
+        error: event.error?.stack,
       })
     })
 
@@ -132,7 +132,7 @@ export class HealthChecker {
     window.addEventListener('unhandledrejection', (event) => {
       this.logRuntimeError('unhandled-rejection', {
         reason: event.reason,
-        promise: event.promise
+        promise: event.promise,
       })
     })
 
@@ -147,18 +147,18 @@ export class HealthChecker {
       // 快速检查关键功能是否正常
       const quickChecks = {
         localStorage: this.checkLocalStorage(),
-        zustand: await this.checkZustand()
+        zustand: await this.checkZustand(),
       }
 
-      const hasIssues = Object.values(quickChecks).some(check => !check)
-      
+      const hasIssues = Object.values(quickChecks).some((check) => !check)
+
       if (hasIssues) {
         console.warn('⚠️ Quick health check detected issues:', quickChecks)
-        
-        if (window.electronAPI?.logError) {
-          window.electronAPI.logError('runtime-health-issue', {
+
+        if ((window as any).electronAPI?.logError) {
+          ;(window as any).electronAPI.logError('runtime-health-issue', {
             checks: quickChecks,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
           })
         }
       }
@@ -195,11 +195,11 @@ export class HealthChecker {
       errorData,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
-      url: window.location.href
+      url: window.location.href,
     }
 
-    if (window.electronAPI?.logError) {
-      window.electronAPI.logError('runtime-error', logData)
+    if ((window as any).electronAPI?.logError) {
+      ;(window as any).electronAPI.logError('runtime-error', logData)
     }
 
     console.error(`Runtime error (${type}):`, logData)
