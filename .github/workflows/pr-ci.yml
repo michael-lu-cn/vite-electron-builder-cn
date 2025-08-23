@@ -16,9 +16,6 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
-
-permissions:
   contents: read
 
 jobs:
