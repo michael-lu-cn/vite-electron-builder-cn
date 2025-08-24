@@ -20,7 +20,7 @@
     "build": "pnpm -r --if-present run build",
     "compile": "pnpm run build && electron-builder build --config electron-builder.mjs --publish never",
     "test": "playwright test",
-    "start": "node packages/dev-mode.js",
+    "start": "node scripts/ensure-electron.cjs || exit 1; node packages/dev-mode.js",
     "typecheck": "pnpm -r --if-present run typecheck",
     "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
     "integrate-renderer": "pnpm start --filter @app/integrate-renderer",

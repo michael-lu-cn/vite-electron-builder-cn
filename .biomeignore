@@ -1,3 +1,6 @@
+scripts/ensure-electron.cjs
+packages/dev-mode.js
+
 # Dependencies
 node_modules/
 pnpm-lock.yaml
