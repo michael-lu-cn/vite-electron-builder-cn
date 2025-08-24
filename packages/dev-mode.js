@@ -1,6 +1,11 @@
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
+import { createRequire } from 'node:module'
 import path from 'node:path'
+
+// Support require in this ESM module
+const require = createRequire(import.meta.url)
+
 import { build, createServer } from 'vite'
 
 // force development mode flags for this script; ensure we run repairs only locally
@@ -10,6 +15,10 @@ process.env.MODE = process.env.MODE || mode
 
 const isCI = !!(process.env.CI || process.env.GITHUB_ACTIONS || process.env.GITLAB_CI)
 const ELECTRON_VERSION = '37.3.1'
+const ELECTRON_MARKER_FILE = path.resolve(
+  'node_modules',
+  `.electron_installed_v${ELECTRON_VERSION}`
+)
 
 function runCmd(cmd, opts = {}) {
   try {
@@ -28,6 +37,71 @@ function fileExists(p) {
   }
 }
 
+function isElectronAvailable() {
+  // First try to require electron in a fresh Node subprocess to ensure runtime works
+  try {
+    const out = execSync("node -e \"console.log(require('electron')?.version||'')\"", {
+      stdio: ['ignore', 'pipe', 'ignore'],
+      timeout: 10_000,
+    })
+      .toString()
+      .trim()
+    if (out) {
+      console.info('Electron child-resolve reports version', out)
+      return true
+    }
+  } catch (e) {
+    // child resolve failed; fallthrough to filesystem checks
+  }
+
+  // Check for platform-specific electron binaries in project layout
+  try {
+    if (process.platform === 'darwin') {
+      const macPath = path.resolve(
+        'node_modules',
+        'electron',
+        'dist',
+        'Electron.app',
+        'Contents',
+        'MacOS',
+        'Electron'
+      )
+      if (fileExists(macPath)) return true
+    } else if (process.platform === 'linux') {
+      const linuxPath = path.resolve('node_modules', 'electron', 'dist', 'electron')
+      if (fileExists(linuxPath)) return true
+    } else if (process.platform === 'win32') {
+      const winPath = path.resolve('node_modules', 'electron', 'dist', 'electron.exe')
+      if (fileExists(winPath)) return true
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  // Check pnpm store for electron package with dist present
+  const pnpmDir = path.resolve('node_modules', '.pnpm')
+  if (fileExists(pnpmDir)) {
+    try {
+      const entries = fs.readdirSync(pnpmDir)
+      for (const ent of entries) {
+        if (!ent.startsWith('electron@')) continue
+        const candidateDist = path.join(pnpmDir, ent, 'node_modules', 'electron', 'dist')
+        if (fileExists(candidateDist)) {
+          // platform-specific check inside that dist
+          const mac = path.join(candidateDist, 'Electron.app', 'Contents', 'MacOS', 'Electron')
+          const lin = path.join(candidateDist, 'electron')
+          const win = path.join(candidateDist, 'electron.exe')
+          if (fileExists(mac) || fileExists(lin) || fileExists(win)) return true
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return false
+}
+
 async function tryEnsureElectron() {
   // skip automatic repairs in CI
   if (isCI) {
@@ -35,18 +109,21 @@ async function tryEnsureElectron() {
     return
   }
 
-  // fast check
-  try {
-    // eslint-disable-next-line no-unused-expressions
-    require.resolve('electron')
+  // fast check using improved availability probe
+  if (isElectronAvailable()) {
+    console.info('Electron appears available; skipping repair')
     return
-  } catch (e) {
-    console.warn('Electron not found or failed to resolve — attempting mirror-based reinstall')
   }
+  console.warn('Electron not found or failed to resolve — attempting mirror-based reinstall')
 
   try {
-    // remove possibly broken electron install paths
-    runCmd('rm -rf node_modules/.pnpm/electron* node_modules/electron* || true')
+    // Only remove existing installs if we don't have a successful-install marker
+    // or if user explicitly requests a reinstall via FORCE_ELECTRON_REINSTALL
+    if (!process.env.FORCE_ELECTRON_REINSTALL && fileExists(ELECTRON_MARKER_FILE)) {
+      console.info('Found existing electron install marker, skipping aggressive cleanup')
+    } else {
+      runCmd('rm -rf node_modules/.pnpm/electron* node_modules/electron* || true')
+    }
 
     // choose mirror (environment or default)
     const mirror =
@@ -86,6 +163,11 @@ async function tryEnsureElectron() {
         // verify require works
         // eslint-disable-next-line no-unused-expressions
         require.resolve('electron')
+        try {
+          fs.writeFileSync(ELECTRON_MARKER_FILE, new Date().toISOString())
+        } catch (e) {
+          console.warn('Could not write electron marker file:', e && e.message)
+        }
         return
       } catch (verifyErr) {
         console.warn('verify require electron failed:', verifyErr && verifyErr.message)
@@ -101,6 +183,11 @@ async function tryEnsureElectron() {
       // eslint-disable-next-line no-unused-expressions
       require.resolve('electron')
       console.info('Electron resolved after direct download')
+      try {
+        fs.writeFileSync(ELECTRON_MARKER_FILE, new Date().toISOString())
+      } catch (e) {
+        console.warn('Could not write electron marker file:', e && e.message)
+      }
       return
     } catch (finalErr) {
       console.error('Electron still not resolvable after attempts:', finalErr && finalErr.message)
@@ -184,6 +271,54 @@ async function downloadAndUnpackElectron(mirror, version) {
               console.info('Overlayed unpacked binary into', path.join(dstPkg, 'dist'))
             } catch (e) {
               console.warn('Could not overlay unpacked binary into package dist:', e && e.message)
+            }
+
+            // ensure electron path.txt exists so electron/index.js can locate the binary
+            try {
+              const execRel =
+                process.platform === 'darwin'
+                  ? path.join('Electron.app', 'Contents', 'MacOS', 'Electron')
+                  : process.platform === 'win32'
+                    ? 'electron.exe'
+                    : 'electron'
+              const pathTxt = path.join(dstPkg, 'path.txt')
+              fs.writeFileSync(pathTxt, execRel, 'utf8')
+              // ensure no trailing newline or whitespace which can break spawning
+              try {
+                const trimmed = fs.readFileSync(pathTxt, 'utf8').trim()
+                fs.writeFileSync(pathTxt, trimmed, 'utf8')
+              } catch (e) {
+                // ignore
+              }
+              console.info('Wrote electron path.txt at', pathTxt, '->', execRel)
+            } catch (e) {
+              console.warn('Failed to write path.txt in', dstPkg, e && e.message)
+            }
+
+            // also ensure node_modules/electron/dist contains the unpacked content and path.txt
+            try {
+              const nmDist = path.resolve('node_modules', 'electron', 'dist')
+              runCmd(`mkdir -p ${nmDist}`)
+              runCmd(`cp -R ${tmp}/* ${nmDist} || true`)
+              const nmPathTxt = path.join(path.resolve('node_modules', 'electron'), 'path.txt')
+              const execRel2 =
+                process.platform === 'darwin'
+                  ? path.join('Electron.app', 'Contents', 'MacOS', 'Electron')
+                  : process.platform === 'win32'
+                    ? 'electron.exe'
+                    : 'electron'
+              try {
+                fs.writeFileSync(nmPathTxt, execRel2, 'utf8')
+                fs.writeFileSync(nmPathTxt, fs.readFileSync(nmPathTxt, 'utf8').trim(), 'utf8')
+                console.info('Wrote', nmPathTxt)
+              } catch (e) {
+                console.warn('Failed to write node_modules electron path.txt:', e && e.message)
+              }
+            } catch (e) {
+              console.warn(
+                'Failed to copy unpacked binary to node_modules/electron/dist or write path.txt:',
+                e && e.message
+              )
             }
           }
         }
