@@ -55,3 +55,14 @@ runs:
         cd node_modules/.pnpm/electron@*/node_modules/electron
         node install.js
       shell: bash
+    - name: Verify Tailwind PostCSS plugin
+      run: |
+        echo '--- postcss config ---'
+        cat packages/renderer/postcss.config.cjs || true
+        echo '--- check @tailwindcss/postcss in workspace ---'
+        pnpm -w ls @tailwindcss/postcss || echo 'not installed'
+        if ! pnpm -w ls @tailwindcss/postcss >/dev/null 2>&1; then
+          echo '@tailwindcss/postcss missing — installing as devDependency'
+          pnpm -w add -D @tailwindcss/postcss
+        fi
+      shell: bash
