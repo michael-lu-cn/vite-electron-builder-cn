@@ -1,6 +1,19 @@
 import path from 'node:path'
 import { build, createServer } from 'vite'
 
+// force development mode flags for this script; ensure we run repairs only locally
+const mode = 'development'
+if (!process.env.NODE_ENV) process.env.NODE_ENV = mode
+process.env.MODE = process.env.MODE || mode
+
+// Installation handled by scripts/ensure-electron.cjs; dev-mode no longer performs installs.
+
+// Electron installation/check moved to `scripts/ensure-electron.cjs`.
+// dev-mode no longer performs installation or direct downloads; it assumes
+// the external ensure script has prepared `node_modules/electron/dist`.
+
+// ensure step moved to external script; dev-mode proceeds to start renderer and build packages
+
 /**
  * This script is designed to run multiple packages of your application in a special development mode.
  * To do this, you need to follow a few steps:
@@ -9,9 +22,8 @@ import { build, createServer } from 'vite'
 /**
  * 1. We create a few flags to let everyone know that we are in development mode.
  */
-const mode = 'development'
-process.env.NODE_ENV = mode
-process.env.MODE = mode
+// `mode` is initialized earlier; ensure MODE env is set
+process.env.MODE = process.env.MODE || mode
 
 /**
  * 2. We create a development server for the renderer. It is assumed that the renderer exists and is located in the “renderer” package.
