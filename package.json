@@ -32,7 +32,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.4",
+    "@biomejs/biome": "^2.2.5",
     "@npmcli/map-workspaces": "5.0.0",
     "@playwright/test": "1.55.1",
     "@radix-ui/react-primitive": "^2.1.3",
