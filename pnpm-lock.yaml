@@ -70,8 +70,8 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0(react@19.2.0)
       tailwindcss:
-        specifier: ^4.1.15
-        version: 4.1.15
+        specifier: ^4.1.16
+        version: 4.1.16
       terser:
         specifier: ^5.44.0
         version: 5.44.0
@@ -2366,9 +2366,6 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
-
-  tailwindcss@4.1.15:
-    resolution: {integrity: sha512-k2WLnWkYFkdpRv+Oby3EBXIyQC8/s1HOFMBUViwtAh6Z5uAozeUSMQlIsn/c6Q2iJzqG6aJT3wdPaRNj70iYxQ==}
 
   tailwindcss@4.1.16:
     resolution: {integrity: sha512-pONL5awpaQX4LN5eiv7moSiSPd/DLDzKVRJz8Q9PgzmAdd1R4307GQS2ZpfiN7ZmekdQrfhZZiSE5jkLR4WNaA==}
@@ -4867,8 +4864,6 @@ snapshots:
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
-
-  tailwindcss@4.1.15: {}
 
   tailwindcss@4.1.16: {}
 
