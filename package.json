@@ -39,7 +39,7 @@
     "@swc/core": "^1.15.0",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "24.10.0",
-    "@vitejs/plugin-react-swc": "^4.2.0",
+    "@vitejs/plugin-react-swc": "^4.2.1",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
     "create-vite": "8.0.2",
