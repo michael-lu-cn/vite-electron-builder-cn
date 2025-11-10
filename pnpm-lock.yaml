@@ -49,8 +49,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       create-vite:
-        specifier: 8.0.2
-        version: 8.0.2
+        specifier: 8.0.3
+        version: 8.0.3
       electron:
         specifier: 39.1.1
         version: 39.1.1
@@ -1142,8 +1142,8 @@ packages:
   crc@3.8.0:
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
 
-  create-vite@8.0.2:
-    resolution: {integrity: sha512-vWwuyDtHTOc0FKs6efl2FeDRp+zZ8MjvS1fKZachMQWgpOSc+ORTZtclgVqZj8J1ZFaeDbgKtxE/VhzlfBqZCw==}
+  create-vite@8.0.3:
+    resolution: {integrity: sha512-R/Xo0zGvaK3exv0q5ipKiGNz0Ne6jDsCHeR5Ayk19K4MBm26bSndHoaJNq6Df/lBsq/KcZE51vC0N3B997MzXA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -1585,8 +1585,8 @@ packages:
     resolution: {integrity: sha512-+N0ngpO3e7cRUWOJAS7qw0IZIVc6XPrW4MlFBdD066F2L4k1L6ker3hLqSq7iXxU5tgS4WGkIUElWn5vogAEnw==}
     engines: {node: ^18.17.0 || >=20.5.0}
 
-  ip-address@10.0.1:
-    resolution: {integrity: sha512-NWv9YLW4PoW2B7xtzaS3NCot75m6nK7Icdv0o3lfMceJVRfSoQwqD4wEH5rLwoKJwUiZ/rfpiVBhnaF0FK4HoA==}
+  ip-address@10.1.0:
+    resolution: {integrity: sha512-XXADHxXmvT9+CRxhXg56LJovE+bmWnEWB78LB83VZTprKTmaC5QfruXocxzTZ2Kl0DNwKuBdlIhjL8LeY8Sf8Q==}
     engines: {node: '>= 12'}
 
   is-ci@3.0.1:
@@ -2363,9 +2363,6 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
-
-  tailwindcss@4.1.16:
-    resolution: {integrity: sha512-pONL5awpaQX4LN5eiv7moSiSPd/DLDzKVRJz8Q9PgzmAdd1R4307GQS2ZpfiN7ZmekdQrfhZZiSE5jkLR4WNaA==}
 
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
@@ -3549,7 +3546,7 @@ snapshots:
       buffer: 5.7.1
     optional: true
 
-  create-vite@8.0.2: {}
+  create-vite@8.0.3: {}
 
   cross-dirname@0.1.0:
     optional: true
@@ -4119,7 +4116,7 @@ snapshots:
 
   ini@5.0.0: {}
 
-  ip-address@10.0.1: {}
+  ip-address@10.1.0: {}
 
   is-ci@3.0.1:
     dependencies:
@@ -4779,7 +4776,7 @@ snapshots:
 
   socks@2.8.7:
     dependencies:
-      ip-address: 10.0.1
+      ip-address: 10.1.0
       smart-buffer: 4.2.0
 
   source-map-js@1.2.1: {}
@@ -4857,8 +4854,6 @@ snapshots:
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
-
-  tailwindcss@4.1.16: {}
 
   tailwindcss@4.1.17: {}
 
