@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.6",
-    "@npmcli/map-workspaces": "5.0.1",
+    "@npmcli/map-workspaces": "5.0.2",
     "@playwright/test": "1.56.1",
     "@radix-ui/react-primitive": "^2.1.4",
     "@swc/core": "^1.15.2",

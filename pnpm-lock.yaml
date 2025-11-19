@@ -22,8 +22,8 @@ importers:
         specifier: ^2.3.6
         version: 2.3.6
       '@npmcli/map-workspaces':
-        specifier: 5.0.1
-        version: 5.0.1
+        specifier: 5.0.2
+        version: 5.0.2
       '@playwright/test':
         specifier: 1.56.1
         version: 1.56.1
@@ -466,12 +466,12 @@ packages:
     resolution: {integrity: sha512-yOJKRvohFOaLqipNtwYB9WugyZKhC/DZC4VYPmpaCzDBrA8YpK3qHZ8/HGscMnE4GqbkLNuVcCnxkeQEdGt6LQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
 
-  '@npmcli/git@7.0.0':
-    resolution: {integrity: sha512-vnz7BVGtOctJAIHouCJdvWBhsTVSICMeUgZo2c7XAi5d5Rrl80S1H7oPym7K03cRuinK5Q6s2dw36+PgXQTcMA==}
+  '@npmcli/git@7.0.1':
+    resolution: {integrity: sha512-+XTFxK2jJF/EJJ5SoAzXk3qwIDfvFc5/g+bD274LZ7uY7LE8sTfG6Z8rOanPl2ZEvZWqNvmEdtXC25cE54VcoA==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@npmcli/map-workspaces@5.0.1':
-    resolution: {integrity: sha512-LFEh3vY5nyiVI9IY9rko7FtAtS9fjgQySARlccKbnS7BMWFyQF73OT/n8NG22/8xyp57xPIl13gwO/OD63nktg==}
+  '@npmcli/map-workspaces@5.0.2':
+    resolution: {integrity: sha512-Qg508s4CTD4FQxBJyvmRkf9t0s1MaaV09zo3VBg6JT7XIWZlzhcvgB/hzwS0OFRYQUgup5Ovoxb7evTW0kdnpA==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
   '@npmcli/move-file@2.0.1':
@@ -483,13 +483,13 @@ packages:
     resolution: {integrity: sha512-qfrhVlOSqmKM8i6rkNdZzABj8MKEITGFAY+4teqBziksCQAOLutiAxM1wY2BKEd8KjUSpWmWCYxvXr0y4VTlPg==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@npmcli/package-json@7.0.1':
-    resolution: {integrity: sha512-956YUeI0YITbk2+KnirCkD19HLzES0habV+Els+dyZaVsaM6VGSiNwnRu6t3CZaqDLz4KXy2zx+0N/Zy6YjlAA==}
+  '@npmcli/package-json@7.0.3':
+    resolution: {integrity: sha512-XT8016UrDfnR7yh2XvnIqaPnA5v2QomaWryDYYgKNT0LaX0vcKf4gu2f3CWD/ltV4tOto4MwZynWlynMJL8bBQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  '@npmcli/promise-spawn@8.0.3':
-    resolution: {integrity: sha512-Yb00SWaL4F8w+K8YGhQ55+xE4RUNdMHV43WZGsiTM92gS+lC0mGsn7I4hLug7pbao035S6bj3Y3w0cUNGLfmkg==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  '@npmcli/promise-spawn@9.0.1':
+    resolution: {integrity: sha512-OLUaoqBuyxeTqUvjA3FZFiXUfYC1alp3Sa99gW3EUDz3tZ3CbXDdcZ7qWKBzicrJleIgucoWamWH1saAmH/l2Q==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1461,11 +1461,6 @@ packages:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
     hasBin: true
 
-  glob@11.0.3:
-    resolution: {integrity: sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA==}
-    engines: {node: 20 || >=22}
-    hasBin: true
-
   glob@12.0.0:
     resolution: {integrity: sha512-5Qcll1z7IKgHr5g485ePDdHcNQY0k2dtv/bjYy0iuyGxQw2qSOiiXUXJ+AYQpg3HNoUMHqAruX478Jeev7UULw==}
     engines: {node: 20 || >=22}
@@ -1594,9 +1589,9 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  ini@5.0.0:
-    resolution: {integrity: sha512-+N0ngpO3e7cRUWOJAS7qw0IZIVc6XPrW4MlFBdD066F2L4k1L6ker3hLqSq7iXxU5tgS4WGkIUElWn5vogAEnw==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  ini@6.0.0:
+    resolution: {integrity: sha512-IBTdIkzZNOpqm7q3dRqJvMaldXjDHWkEDfrwGEQTs5eaQMWV+djAhR+wahyNNMAa+qpbDUhBMVt4ZKNwpPm7xQ==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   ip-address@10.1.0:
     resolution: {integrity: sha512-XXADHxXmvT9+CRxhXg56LJovE+bmWnEWB78LB83VZTprKTmaC5QfruXocxzTZ2Kl0DNwKuBdlIhjL8LeY8Sf8Q==}
@@ -1674,9 +1669,9 @@ packages:
   json-buffer@3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
 
-  json-parse-even-better-errors@4.0.0:
-    resolution: {integrity: sha512-lR4MXjGNgkJc7tkQ97kb2nuEMnNCyU//XYVH0MKTGcXEiSudQ5MKGKen3C5QubYy0vmq+JGitUg92uuywGEwIA==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  json-parse-even-better-errors@5.0.0:
+    resolution: {integrity: sha512-ZF1nxZ28VhQouRWhUcVlUIN3qwSgPuswK05s/HIaoetAoE/9tngVmCHjSxmSQPav1nd+lPtTL0YZ/2AFdR/iYQ==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   json-schema-traverse@0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
@@ -1865,10 +1860,6 @@ packages:
     resolution: {integrity: sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==}
     engines: {node: '>=10'}
 
-  minimatch@10.0.3:
-    resolution: {integrity: sha512-IPZ167aShDZZUMdRk66cyQAW3qr0WzbHkPdMYa8bzZhlHhO3jALbKdxcaak7W9FfT2rZNpQuUu4Od7ILEpXSaw==}
-    engines: {node: 20 || >=22}
-
   minimatch@10.1.1:
     resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
@@ -1990,8 +1981,8 @@ packages:
     resolution: {integrity: sha512-CJi3OS4JLsNMmr2u07OJlhcrPxCeOeP/4xq67aWNai6TNWWbTrlNDgl8NcFKVlcBKp18GPj+EzbNIgrBfZhsag==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
-  npm-package-arg@13.0.1:
-    resolution: {integrity: sha512-6zqls5xFvJbgFjB1B2U6yITtyGBjDBORB7suI4zA4T/sZ1OmkMFlaQSNB/4K0LtXNA1t4OprAFxPisadK5O2ag==}
+  npm-package-arg@13.0.2:
+    resolution: {integrity: sha512-IciCE3SY3uE84Ld8WZU23gAPPV9rIYod4F+rc+vJ7h7cwAJt9Vk6TVsK60ry7Uj3SRS3bqRRIGuTp9YVlk6WNA==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
   npm-pick-manifest@11.0.3:
@@ -2113,9 +2104,9 @@ packages:
     resolution: {integrity: sha512-Kcmo2FhfDTXdcbfDH76N7uBYHINxc/8GW7UAVuVP9I+Va3uHSerrnKV6dLooga/gh7GlgzuCCr/eoldnL1muGw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
 
-  proc-log@5.0.0:
-    resolution: {integrity: sha512-Azwzvl90HaF0aCz1JrDdXQykFakSSNPaPoiZ9fm5qJIMHioDZEi7OAdRwSm6rSoPtY3Qutnm3L7ogmg3dc+wbQ==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  proc-log@6.0.0:
+    resolution: {integrity: sha512-KG/XsTDN901PNfPfAMmj6N/Ywg9tM+bHK8pAz+27fS4N4Pcr+4zoYBOcGSBu6ceXYNPxkLpa4ohtfxV1XcLAfA==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -2479,9 +2470,9 @@ packages:
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
-  validate-npm-package-name@6.0.2:
-    resolution: {integrity: sha512-IUoow1YUtvoBBC06dXs8bR8B9vuA3aJfmQNKMoaPG/OFsPmoQvw8xh+6Ye25Gx9DQhoEom3Pcu9MKHerm/NpUQ==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  validate-npm-package-name@7.0.0:
+    resolution: {integrity: sha512-bwVk/OK+Qu108aJcMAEiU4yavHUI7aN20TgZNBj9MR2iU1zPUl1Z1Otr7771ExfYTPTvfN8ZJ1pbr5Iklgt4xg==}
+    engines: {node: ^20.17.0 || >=22.9.0}
 
   verror@1.10.1:
     resolution: {integrity: sha512-veufcmxri4e3XSrT0xwfUR7kguIkaxBeosDg00yDWhk49wdwkSUrvvsm7nc75e1PUyvIeZj6nS8VQRYz2/S4Xg==}
@@ -2539,9 +2530,9 @@ packages:
     engines: {node: '>= 8'}
     hasBin: true
 
-  which@5.0.0:
-    resolution: {integrity: sha512-JEdGzHwwkrbWoGOlIHqQ5gtprKGOenpDHpxE9zVR1bWbOtYRyPPHMe9FaP6x61CmNaTThSkb0DAJte5jD+DmzQ==}
-    engines: {node: ^18.17.0 || >=20.5.0}
+  which@6.0.0:
+    resolution: {integrity: sha512-f+gEpIKMR9faW/JgAgPK1D7mekkFoqbmiwvNzuhsHetni20QSgzg9Vhn0g2JSJkkfehQnqdUAx7/e15qS1lPxg==}
+    engines: {node: ^20.17.0 || >=22.9.0}
     hasBin: true
 
   wrap-ansi@7.0.0:
@@ -2731,7 +2722,7 @@ snapshots:
       node-api-version: 0.2.1
       ora: 5.4.1
       read-binary-file-arch: 1.0.6
-      semver: 7.7.2
+      semver: 7.7.3
       tar: 6.2.1
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -2898,23 +2889,23 @@ snapshots:
       '@gar/promisify': 1.1.3
       semver: 7.7.3
 
-  '@npmcli/git@7.0.0':
+  '@npmcli/git@7.0.1':
     dependencies:
-      '@npmcli/promise-spawn': 8.0.3
-      ini: 5.0.0
+      '@npmcli/promise-spawn': 9.0.1
+      ini: 6.0.0
       lru-cache: 11.2.2
       npm-pick-manifest: 11.0.3
-      proc-log: 5.0.0
+      proc-log: 6.0.0
       promise-retry: 2.0.1
       semver: 7.7.3
-      which: 5.0.0
+      which: 6.0.0
 
-  '@npmcli/map-workspaces@5.0.1':
+  '@npmcli/map-workspaces@5.0.2':
     dependencies:
       '@npmcli/name-from-folder': 4.0.0
-      '@npmcli/package-json': 7.0.1
-      glob: 11.0.3
-      minimatch: 10.0.3
+      '@npmcli/package-json': 7.0.3
+      glob: 12.0.0
+      minimatch: 10.1.1
 
   '@npmcli/move-file@2.0.1':
     dependencies:
@@ -2923,19 +2914,19 @@ snapshots:
 
   '@npmcli/name-from-folder@4.0.0': {}
 
-  '@npmcli/package-json@7.0.1':
+  '@npmcli/package-json@7.0.3':
     dependencies:
-      '@npmcli/git': 7.0.0
-      glob: 11.0.3
+      '@npmcli/git': 7.0.1
+      glob: 12.0.0
       hosted-git-info: 9.0.2
-      json-parse-even-better-errors: 4.0.0
-      proc-log: 5.0.0
+      json-parse-even-better-errors: 5.0.0
+      proc-log: 6.0.0
       semver: 7.7.3
       validate-npm-package-license: 3.0.4
 
-  '@npmcli/promise-spawn@8.0.3':
+  '@npmcli/promise-spawn@9.0.1':
     dependencies:
-      which: 5.0.0
+      which: 6.0.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -3980,15 +3971,6 @@ snapshots:
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
 
-  glob@11.0.3:
-    dependencies:
-      foreground-child: 3.3.1
-      jackspeak: 4.1.1
-      minimatch: 10.0.3
-      minipass: 7.1.2
-      package-json-from-dist: 1.0.1
-      path-scurry: 2.0.1
-
   glob@12.0.0:
     dependencies:
       foreground-child: 3.3.1
@@ -4145,7 +4127,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  ini@5.0.0: {}
+  ini@6.0.0: {}
 
   ip-address@10.1.0: {}
 
@@ -4201,7 +4183,7 @@ snapshots:
 
   json-buffer@3.0.1: {}
 
-  json-parse-even-better-errors@4.0.0: {}
+  json-parse-even-better-errors@5.0.0: {}
 
   json-schema-traverse@0.4.1: {}
 
@@ -4367,10 +4349,6 @@ snapshots:
 
   mimic-response@3.1.0: {}
 
-  minimatch@10.0.3:
-    dependencies:
-      '@isaacs/brace-expansion': 5.0.0
-
   minimatch@10.1.1:
     dependencies:
       '@isaacs/brace-expansion': 5.0.0
@@ -4480,18 +4458,18 @@ snapshots:
 
   npm-normalize-package-bin@5.0.0: {}
 
-  npm-package-arg@13.0.1:
+  npm-package-arg@13.0.2:
     dependencies:
       hosted-git-info: 9.0.2
-      proc-log: 5.0.0
+      proc-log: 6.0.0
       semver: 7.7.3
-      validate-npm-package-name: 6.0.2
+      validate-npm-package-name: 7.0.0
 
   npm-pick-manifest@11.0.3:
     dependencies:
       npm-install-checks: 8.0.0
       npm-normalize-package-bin: 5.0.0
-      npm-package-arg: 13.0.1
+      npm-package-arg: 13.0.2
       semver: 7.7.3
 
   npm-run-path@5.3.0:
@@ -4612,7 +4590,7 @@ snapshots:
 
   proc-log@2.0.1: {}
 
-  proc-log@5.0.0: {}
+  proc-log@6.0.0: {}
 
   process-nextick-args@2.0.1: {}
 
@@ -4991,7 +4969,7 @@ snapshots:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
 
-  validate-npm-package-name@6.0.2: {}
+  validate-npm-package-name@7.0.0: {}
 
   verror@1.10.1:
     dependencies:
@@ -5025,7 +5003,7 @@ snapshots:
     dependencies:
       isexe: 2.0.0
 
-  which@5.0.0:
+  which@6.0.0:
     dependencies:
       isexe: 3.1.1
 
