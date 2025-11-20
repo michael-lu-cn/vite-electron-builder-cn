@@ -42,7 +42,7 @@
     "@vitejs/plugin-react-swc": "^4.2.2",
     "autoprefixer": "^10.4.22",
     "clsx": "^2.1.1",
-    "create-vite": "8.1.0",
+    "create-vite": "8.2.0",
     "electron": "39.2.1",
     "electron-builder": "26.0.12",
     "glob": "12.0.0",
