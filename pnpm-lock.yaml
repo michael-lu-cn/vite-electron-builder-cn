@@ -49,8 +49,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       create-vite:
-        specifier: 8.1.0
-        version: 8.1.0
+        specifier: 8.2.0
+        version: 8.2.0
       electron:
         specifier: 39.2.1
         version: 39.2.1
@@ -1150,8 +1150,8 @@ packages:
   crc@3.8.0:
     resolution: {integrity: sha512-iX3mfgcTMIq3ZKLIsVFAbv7+Mc10kxabAGQb8HvjA1o3T1PIYprbakQ65d3I+2HGHt6nSKkM9PYjgoJO2KcFBQ==}
 
-  create-vite@8.1.0:
-    resolution: {integrity: sha512-JkgaTpyvvvEh9s1JBheRDW/LxUMp562revOmN30anozgioou6T/5uY4duWuwX6u/O41hoQ5N+lt8CXzaQ0cMHw==}
+  create-vite@8.2.0:
+    resolution: {integrity: sha512-77BlmjbmiaEaBc1xmBFZ5Izq7nSdFkrs037Jxegk93jv/3AkzNNLxypIbKBVMY7/lAMWynug4ERssvruqxxd1g==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
@@ -3559,7 +3559,7 @@ snapshots:
       buffer: 5.7.1
     optional: true
 
-  create-vite@8.1.0: {}
+  create-vite@8.2.0: {}
 
   cross-dirname@0.1.0:
     optional: true
