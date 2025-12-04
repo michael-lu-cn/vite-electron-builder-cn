@@ -14,7 +14,7 @@
     "tw:build": "tailwindcss -i src/index.css -o src/tailwind-output.css --minify"
   },
   "dependencies": {
-    "react": "^19.2.0",
+    "react": "^19.2.1",
     "react-dom": "^19.2.0",
     "zustand": "^5.0.9"
   },
