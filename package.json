@@ -37,7 +37,7 @@
     "@playwright/test": "1.57.0",
     "@radix-ui/react-primitive": "^2.1.4",
     "@swc/core": "^1.15.3",
-    "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "24.10.2",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "autoprefixer": "^10.4.22",
