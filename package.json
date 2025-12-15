@@ -40,7 +40,7 @@
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "25.0.2",
     "@vitejs/plugin-react-swc": "^4.2.2",
-    "autoprefixer": "^10.4.22",
+    "autoprefixer": "^10.4.23",
     "clsx": "^2.1.1",
     "create-vite": "8.2.0",
     "electron": "39.2.7",
