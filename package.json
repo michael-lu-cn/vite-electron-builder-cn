@@ -43,7 +43,7 @@
     "autoprefixer": "^10.4.22",
     "clsx": "^2.1.1",
     "create-vite": "8.2.0",
-    "electron": "39.2.6",
+    "electron": "39.2.7",
     "electron-builder": "26.0.12",
     "glob": "13.0.0",
     "husky": "^9.1.7",
